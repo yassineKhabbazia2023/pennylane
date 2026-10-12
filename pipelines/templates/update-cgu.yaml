@@ -1,0 +1,144 @@
+parameters:
+- name: deployToDev
+  displayName: 'Déployer sur DEV'
+  type: boolean
+  default: false
+- name: deployToItg
+  displayName: 'Déployer sur ITG'
+  type: boolean
+  default: true
+- name: deployToRec
+  displayName: 'Déployer sur REC'
+  type: boolean
+  default: true
+- name: deployToPrd
+  displayName: 'Déployer sur PROD'
+  type: boolean
+  default: true
+- name: cguPath
+  type: string
+  default: 'cgu-files'
+
+stages:
+- ${{ if eq(parameters.deployToDev, true) }}:
+  - 'Deployment to DEV environment is no longer supported.': error
+  
+- ${{ if and(parameters.deployToPrd, not(parameters.deployToRec)) }}:
+  - 'Deploying to REC is mandatory before deploying to PROD.': error
+
+- ${{ if and(not(parameters.deployToItg), not(parameters.deployToRec), not(parameters.deployToPrd)) }}:
+  - 'At least one environment must be chosen.': error
+
+- stage: build
+  displayName: 'Build'
+  jobs:
+  - job: build
+    displayName: 'Build'
+    steps:
+    - task: PowerShell@2
+      displayName: "Check the cgu folder if it exists and contains files"
+      inputs:
+        targetType: 'inline'
+        script: |
+          $files = Get-ChildItem -Path '$(Build.SourcesDirectory)/${{ parameters.cguPath }}'  -Recurse -Include *.pdf | ForEach-Object { $_.Name }
+          if ($files.Count -eq 0) {
+            Write-Host "The cgu folder already exists and but is empty"
+            $ErrorActionPreference = true
+          }
+
+- ${{ if parameters.deployToItg }}:
+  - stage: ITG
+    displayName: 'Integration'
+    pool: Pulse-Linux-itg
+    jobs:
+    - deployment: deploy
+      displayName: '[ITG] Deploy CGU files'
+      environment: ITG01
+      strategy:
+        runOnce:
+          deploy:
+            steps:
+            - checkout: self
+            - task: AzurePowerShell@5
+              displayName: "Update CGU files to the latest version"
+              inputs:
+                ScriptType: 'filePath'
+                pwsh: true
+                azureSubscription: 'Rydge-Itg'
+                azurePowerShellVersion: 'LatestVersion'
+                ScriptPath: '$(Build.SourcesDirectory)/pipelines/Deployment/CGU_Deployments.ps1'
+                ScriptArguments:  > # Use this to avoid newline characters in multiline string
+                  -ResourceGroupName "rgcegpulseitg01pnl"
+                  -StorageAccountName "sacegpulsepnlitg0101"
+                  -Path "$(Build.SourcesDirectory)/${{ parameters.cguPath }}/"
+                  -SqlServer "sqlcegpulsepnlitg0101"
+                  -SqlDatabase "sqldbcegpulsepnlitg0101"
+                  -Env "itg"
+
+- ${{ if or(eq(variables['Build.SourceBranch'], 'refs/heads/main'), startsWith(variables['Build.SourceBranch'], 'refs/tags/')) }}:
+  - ${{ if parameters.deployToRec }}:
+    - stage: REC01
+      displayName: Recette-rec01
+      pool: Pulse-Linux-rec
+      dependsOn: Build
+      jobs:
+      - deployment: deploy
+        displayName: '[REC01] Deploy CGU files'
+        environment: REC01
+        variables:
+        - name: hubEnvironment
+          value: rec01
+        strategy:
+          runOnce:
+            deploy:
+              steps:
+              - checkout: self
+              - task: AzurePowerShell@5
+                displayName: "Update CGU files to the latest version"
+                inputs:
+                  ScriptType: 'filePath'
+                  pwsh: true
+                  azureSubscription: 'Rydge-rec'
+                  azurePowerShellVersion: 'LatestVersion'
+                  ScriptPath: '$(Build.SourcesDirectory)/pipelines/Deployment/CGU_Deployments.ps1'
+                  ScriptArguments:  > # Use this to avoid newline characters in multiline string
+                    -ResourceGroupName "rgcegpulserec01pnl"
+                    -StorageAccountName "sacegpulsepnlrec0101"
+                    -Path "$(Build.SourcesDirectory)/${{ parameters.cguPath }}/"
+                    -SqlServer "sqlcegpulsepnlrec0101"
+                    -SqlDatabase "sqldbcegpulsepnlrec0101"
+                    -Env "rec"
+
+  - ${{ if parameters.deployToPrd }}:
+    - stage: PRD01
+      displayName: Production-prd01
+      pool: Pulse-Linux-prd
+      dependsOn:
+      - REC01
+      jobs:
+      - deployment: deploy
+        displayName: '[PRD01] Deploy CGU files'
+        environment: PRD01
+        variables:
+        - name: hubEnvironment
+          value: prd01
+        strategy:
+          runOnce:
+            deploy:
+              steps:
+              - checkout: self
+              - task: AzurePowerShell@5
+                displayName: "Update CGU files to the latest version"
+                inputs:
+                  ScriptType: 'filePath'
+                  pwsh: true
+                  azureSubscription: 'Rydge-prd'
+                  azurePowerShellVersion: 'LatestVersion'
+                  ScriptPath: '$(Build.SourcesDirectory)/pipelines/Deployment/CGU_Deployments.ps1'
+                  ScriptArguments:  > # Use this to avoid newline characters in multiline string
+                    -ResourceGroupName "rgcegpulseprd01pnl"
+                    -StorageAccountName "sacegpulsepnlprd0101"
+                    -Path "$(Build.SourcesDirectory)/${{ parameters.cguPath }}/"
+                    -SqlServer "sqlcegpulsepnlprd0101"
+                    -SqlDatabase "sqldbcegpulsepnlprd0101"
+                    -Env "prd"

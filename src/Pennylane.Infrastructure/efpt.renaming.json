@@ -1,0 +1,154 @@
+﻿[
+   {
+      "SchemaName": "Account",
+      "Tables": [
+         {
+            "Columns": [ ],
+            "Name": "Accounts",
+            "NewName": "AccountEntity"
+         },
+         {
+            "Columns": [ ],
+            "Name": "Roles",
+            "NewName": "RoleEntity"
+         }
+      ],
+      "UseSchemaName": false
+   },
+   {
+      "SchemaName": "Amend",
+      "Tables": [
+         {
+            "Columns": [ ],
+            "Name": "SignatoryAccess",
+            "NewName": "SignatoryAccessEntity"
+         },
+         {
+            "Columns": [ ],
+            "Name": "Terms",
+            "NewName": "TermsEntity"
+         },
+         {
+            "Columns": [ ],
+            "Name": "ValidationHistory",
+            "NewName": "ValidationHistoryEntity"
+         }
+      ],
+      "UseSchemaName": false
+   },
+   {
+      "SchemaName": "Contact",
+      "Tables": [
+         {
+            "Columns": [ ],
+            "Name": "Contacts",
+            "NewName": "ContactEntity"
+         }
+      ],
+      "UseSchemaName": false
+   },
+   {
+      "SchemaName": "offer",
+      "Tables": [
+         {
+            "Columns": [ ],
+            "Name": "Subscriptions",
+            "NewName": "SubscriptionEntity"
+         }
+      ],
+      "UseSchemaName": false
+   },
+   {
+      "SchemaName": "Pennylane",
+      "Tables": [
+         {
+            "Columns": [ ],
+            "Name": "Companies",
+            "NewName": "CompanyEntity"
+         },
+         {
+            "Columns": [ ],
+            "Name": "Documents",
+            "NewName": "DocumentEntity"
+         },
+         {
+            "Columns": [ ],
+            "Name": "DocumentsSyncStatus",
+            "NewName": "DocumentsSyncStatusEntity"
+         },
+         {
+            "Columns": [ ],
+            "Name": "EmailRecapBatches",
+            "NewName": "EmailRecapBatchEntity"
+         },
+         {
+            "Columns": [ ],
+            "Name": "EmailRecapItems",
+            "NewName": "EmailRecapItemEntity"
+         },
+         {
+            "Columns": [ ],
+            "Name": "PennylaneGedPermissions",
+            "NewName": "PennylaneGedPermissionEntity"
+         },
+         {
+            "Columns": [ ],
+            "Name": "Roles",
+            "NewName": "PnlRoleEntity"
+         }
+      ],
+      "UseSchemaName": false
+   },
+   {
+      "SchemaName": "ref",
+      "Tables": [
+         {
+            "Columns": [ ],
+            "Name": "Account",
+            "NewName": "RefAccountEntity"
+         },
+         {
+            "Columns": [ ],
+            "Name": "Contact",
+            "NewName": "RefContactEntity"
+         },
+         {
+            "Columns": [ ],
+            "Name": "Role",
+            "NewName": "RefRoleEntity"
+         }
+      ],
+      "UseSchemaName": false
+   },
+   {
+      "SchemaName": "reg",
+      "Tables": [
+         {
+            "Columns": [ ],
+            "Name": "Account",
+            "NewName": "RegAccountEntity"
+         },
+         {
+            "Columns": [ ],
+            "Name": "Contact",
+            "NewName": "RegContactEntity"
+         },
+         {
+            "Columns": [ ],
+            "Name": "Operations",
+            "NewName": "RegOperationEntity"
+         },
+         {
+            "Columns": [ ],
+            "Name": "ProcessDeltaTrigger",
+            "NewName": "RegProcessDeltaTriggerEntity"
+         },
+         {
+            "Columns": [ ],
+            "Name": "role",
+            "NewName": "RegRoleEntity"
+         }
+      ],
+      "UseSchemaName": false
+   }
+]

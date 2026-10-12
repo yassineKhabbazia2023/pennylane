@@ -1,0 +1,42 @@
+-- =============================================================================
+-- SCRIPT 4 -- Guide de verification post-rattrapage des roles Pennylane
+-- Ticket  : #60787 - Rattraper les roles
+-- Auteur  : RYDGE Conseil
+-- Date    : 2026-05-20
+--
+-- PROCEDURE DE VERIFICATION EN 3 ETAPES :
+-- =============================================================================
+--
+-- ETAPE 1 — Executer 04a_verify_pennylane.sql
+--   Connexion : serveur PENNYLANE
+--   Resultats :
+--     - Total des roles enregistres
+--     - Repartition par type de role
+--     - Roles invalides (attendu : 0 ligne)
+--     - Export CSV des paires (ContactId, AccountId, Role)
+--
+-- ETAPE 2 — Executer 04b_verify_registry.sql
+--   Connexion : serveur AUTORISATION
+--   Resultats :
+--     - Total des autorisations Pennylane (AuthorizationId = 15)
+--     - Export CSV des paires (ContactId, AccountId, Email, AccountNumber)
+--
+-- ETAPE 3 — Comparaison croisee (Excel ou autre outil)
+--   Ouvrir les deux exports CSV.
+--   Les lignes presentes dans 04b (Registry) mais absentes dans 04a (Pennylane)
+--   correspondent aux utilisateurs encore sans role apres le rattrapage.
+--   Resultat attendu : 0 ligne manquante.
+--
+--   Pour identifier rapidement les manquants avec Excel :
+--     - Colonne cle de jointure : ContactId + AccountId (concatener les deux)
+--     - Utiliser RECHERCHEV ou Power Query pour trouver les non-matches
+--
+-- =============================================================================
+--
+-- BILAN ATTENDU :
+--   Indicateur                                          Valeur
+--   Total autorisations Pennylane (AuthorizationId=15)  X
+--   Total Roles Pennylane                               X   (doit etre >= precedent)
+--   Utilisateurs encore sans role                       0   (objectif)
+--
+-- =============================================================================

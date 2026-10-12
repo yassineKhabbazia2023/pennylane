@@ -1,0 +1,102 @@
+﻿[
+   {
+      "SchemaName": "Account",
+      "Tables": [
+         {
+            "Columns": [ ],
+            "Name": "Accounts",
+            "NewName": "AccountEntity"
+         },
+         {
+            "Columns": [ ],
+            "Name": "Roles",
+            "NewName": "RoleEntity"
+         }
+      ],
+      "UseSchemaName": false
+   },
+   {
+      "SchemaName": "Amend",
+      "Tables": [
+         {
+            "Columns": [ ],
+            "Name": "SignatoryAccess",
+            "NewName": "SignatoryAccessEntity"
+         },
+         {
+            "Columns": [ ],
+            "Name": "Terms",
+            "NewName": "TermsEntity"
+         },
+         {
+            "Columns": [ ],
+            "Name": "ValidationHistory",
+            "NewName": "ValidationHistoryEntity"
+         }
+      ],
+      "UseSchemaName": false
+   },
+   {
+      "SchemaName": "Contact",
+      "Tables": [
+         {
+            "Columns": [ ],
+            "Name": "Contacts",
+            "NewName": "ContactEntity"
+         }
+      ],
+      "UseSchemaName": false
+   },
+   {
+      "SchemaName": "offer",
+      "Tables": [
+         {
+            "Columns": [ ],
+            "Name": "Subscriptions",
+            "NewName": "SubscriptionEntity"
+         }
+      ],
+      "UseSchemaName": false
+   },
+   {
+      "SchemaName": "Pennylane",
+      "Tables": [
+         {
+            "Columns": [ ],
+            "Name": "Companies",
+            "NewName": "CompanyEntity"
+         },
+         {
+            "Columns": [ ],
+            "Name": "Documents",
+            "NewName": "DocumentEntity"
+         },
+         {
+            "Columns": [ ],
+            "Name": "DocumentsSyncStatus",
+            "NewName": "DocumentsSyncStatusEntity"
+         },
+         {
+            "Columns": [ ],
+            "Name": "EmailRecapBatches",
+            "NewName": "EmailRecapBatchEntity"
+         },
+         {
+            "Columns": [ ],
+            "Name": "EmailRecapItems",
+            "NewName": "EmailRecapItemEntity"
+         },
+         {
+            "Columns": [ ],
+            "Name": "PennylaneGedPermissions",
+            "NewName": "PennylaneGedPermissionEntity"
+         },
+         {
+            "Columns": [ ],
+            "Name": "Roles",
+            "NewName": "RoleEntity"
+         }
+      ],
+      "UseSchemaName": false
+   }
+]

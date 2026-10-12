@@ -1,0 +1,30 @@
+trigger: none
+
+pool:
+  vmImage: windows-latest
+
+parameters:
+- name: deployToDev
+  displayName: 'Déployer sur DEV'
+  type: boolean
+  default: false
+- name: deployToItg
+  displayName: 'Déployer sur ITG'
+  type: boolean
+  default: true
+- name: deployToRec
+  displayName: 'Déployer sur REC'
+  type: boolean
+  default: true
+- name: deployToPrd
+  displayName: 'Déployer sur PROD'
+  type: boolean
+  default: true
+
+stages:
+- template: templates/update-cgu.yaml
+  parameters:
+    deployToDev: ${{ parameters.deployToDev }}
+    deployToItg: ${{ parameters.deployToItg }}
+    deployToRec: ${{ parameters.deployToRec }}
+    deployToPrd: ${{ parameters.deployToPrd }}

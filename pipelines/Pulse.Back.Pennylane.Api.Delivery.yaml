@@ -1,0 +1,48 @@
+trigger:
+  - main
+  - bugfix/*
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+parameters:
+- name: deployToDev
+  displayName: 'Déployer sur DEV'
+  type: boolean
+  default: false
+- name: deployToItg
+  displayName: 'Déployer sur ITG'
+  type: boolean
+  default: true
+- name: deployToRec
+  displayName: 'Déployer sur REC'
+  type: boolean
+  default: true
+- name: deployToPrd
+  displayName: 'Déployer sur PROD'
+  type: boolean
+  default: true
+
+
+resources:
+  repositories:
+  - repository: Pulse
+    name: 'Pulse.Operations.Pipelines'
+    type: git
+    ref: 'refs/heads/Release/v4.0'
+
+extends:
+  template: pipelines/delivery/back.yaml@Pulse
+  parameters:
+    deployToDev: ${{ parameters.deployToDev }}
+    deployToItg: ${{ parameters.deployToItg }}
+    deployToRec: ${{ parameters.deployToRec }}
+    deployToPrd: ${{ parameters.deployToPrd }}
+    srcPath: src/Pennylane.Api/Pennylane.WebApi.csproj
+    testsPath: tests/**/*.csproj
+    sonarExclusions: '**/Program.cs, **/Migrations/**, **/scripts/**'
+    domain: pnl
+    name: pennylane
+    dotnetVersion: '10.x'
+    appType: webApp
+    id: '01'

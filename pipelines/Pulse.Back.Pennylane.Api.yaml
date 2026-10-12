@@ -1,0 +1,39 @@
+trigger: none
+
+pool:
+  vmImage: windows-latest
+
+parameters:
+- name: devIndex
+  displayName: 'Index de l environnement cible (seulement pour un déploiement sur env de DEV)'
+  type: number
+  default: 0
+- name: deployType
+  displayName: "Technical parameter : don t modify it ! onlyDev/standard"
+  type: string
+  default: 'standard'
+  values:
+    - onlyDev
+    - standard
+
+resources:
+  repositories:
+  - repository: Pulse
+    name: 'Pulse.Operations.Pipelines'
+    type: git
+    ref: 'refs/heads/Release/v3.1'
+
+extends:
+  template: pipelines/templates/platform.back.api.yaml@Pulse
+  parameters:
+    devIndex: ${{ parameters.devIndex }}
+    deployType: ${{ parameters.deployType }}
+    sonarExclusions: '**/Program.cs, **/Migrations/**'
+    layer: Domain
+    domain: pnl
+    resource:
+      id: '01'
+      name: 'pennylane'
+      path: src\Pennylane.Api\Pennylane.WebApi.csproj
+      type: 'webApp' 
+    dotnetcore: 10.x

@@ -1,0 +1,30 @@
+trigger: none
+
+pool:
+  vmImage: 'windows-latest'
+
+parameters:
+- name: deployToDev
+  displayName: 'Déployer sur DEV'
+  type: boolean
+  default: false
+- name: deployToItg
+  displayName: 'Déployer sur ITG'
+  type: boolean
+  default: true
+
+resources:
+  repositories:
+  - repository: Pulse
+    name: 'Pulse.Operations.Pipelines'
+    type: git
+    ref: 'refs/heads/Release/v4.0'
+
+extends:
+  template: pipelines/quick-build/sql.yaml@Pulse
+  parameters:
+    deployToDev: ${{ parameters.deployToDev }}
+    deployToItg: ${{ parameters.deployToItg }}
+    srcPath: src\Pennylane.Sql.Database\Pennylane.Sql.Database.sqlproj
+    domain: pnl
+    id: '01'

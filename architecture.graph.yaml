@@ -1,0 +1,137 @@
+# Fragment d'architecture — genere par scripts/archgraph/generator.py
+# `managed_by_script` : NE PAS EDITER (regenere a chaque PR).
+# `managed_by_ai` : maintenu par l'agent IA (roles, appels autorises, notes).
+schema: pulse-archgraph/v1
+service: pennylane
+repo: Pulse.Back.Pennylane
+generated_at: '2026-09-22T15:14:25+00:00'
+managed_by_script:
+  projects:
+  - name: Pennylane.Application
+    path: src/Pennylane.Application/Pennylane.Application.csproj
+    references:
+    - Pennylane.Domain
+  - name: Pennylane.Domain
+    path: src/Pennylane.Domain/Pennylane.Domain.csproj
+    references: []
+  - name: Pennylane.Infrastructure
+    path: src/Pennylane.Infrastructure/Pennylane.Infrastructure.csproj
+    references:
+    - Pennylane.Application
+    - Pennylane.Domain
+  - name: Pennylane.WebApi
+    path: src/Pennylane.Api/Pennylane.WebApi.csproj
+    references:
+    - Pennylane.Infrastructure
+  internal_packages:
+  - name: Pulse.Back.Events
+    version: 2.74.208
+  - name: Pulse.ExceptionMiddleware
+    version: 2.73.47
+  infra:
+  - blob-storage
+  - service-bus
+  - sql-server
+  endpoints:
+  - method: GET
+    route: /api/documents
+    controller: DocumentController
+  - method: POST
+    route: /api/documents/archive
+    controller: DocumentController
+  - method: DELETE
+    route: /api/documents/purge
+    controller: DocumentController
+  - method: GET
+    route: /api/documents/{id}/content
+    controller: DocumentController
+  - method: POST
+    route: /api/pennylane/companies/onboarding
+    controller: PennylaneController
+  - method: GET
+    route: /api/pennylane/companies/{accountNumber}/emails
+    controller: PennylaneController
+  - method: POST
+    route: /api/pennylane/role
+    controller: PennylaneController
+  - method: GET
+    route: /api/pennylane/role/accounts/{accountId}/contacts/{contactId}
+    controller: PennylaneController
+  - method: POST
+    route: /api/pennylane/role/create
+    controller: PennylaneController
+  - method: POST
+    route: /api/pennylane/role/revoke
+    controller: PennylaneController
+  - method: GET
+    route: /api/pennylane/roles
+    controller: PennylaneController
+  - method: GET
+    route: /api/pennylane/access
+    controller: SignatoryImportController
+  - method: GET
+    route: /api/pennylane/accounts/{accountId}/access
+    controller: SignatoryImportController
+  - method: POST
+    route: /api/pennylane/signatories/import
+    controller: SignatoryImportController
+  - method: GET
+    route: /api/pennylane/terms/content
+    controller: SignatoryImportController
+  - method: POST
+    route: /api/pennylane/validation
+    controller: SignatoryImportController
+  - method: POST
+    route: /webhooks/pennylane/events
+    controller: WebhookController
+  events:
+    publishes:
+    - EmailOnlySenderEvent
+    - HistoryCreatedEvent
+    - PennylaneDocumentSyncCompletedEvent
+    - PennylaneDocumentSyncEvent
+    - PennylaneSubscriptionCheckCompletedEvent
+    - PennylaneUserCreatedEvent
+    - PennylaneUserRemovedEvent
+    consumes:
+    - event: AccountCreatedEvent
+      handler: AccountCreatedEventHandler
+    - event: AccountRemovedEvent
+      handler: AccountRemovedEventHandler
+    - event: AccountUpdatedEvent
+      handler: AccountUpdatedEventHandler
+    - event: AuthorizationUpdatedEvent
+      handler: AuthorizationUpdatedEventHandler
+    - event: ContactCreatedEvent
+      handler: ContactCreatedEventHandler
+    - event: ContactRemovedEvent
+      handler: ContactRemovedEventHandler
+    - event: ContactUpdatedEvent
+      handler: ContactUpdatedEventHandler
+    - event: PennylaneDocumentSyncEvent
+      handler: DocumentSyncEventHandler
+    - event: PennylaneSubscriptionCheckRequestedEvent
+      handler: SubscriptionCheckRequestedEventHandler
+    - event: RoleCreatedEvent
+      handler: RoleCreatedEventHandler
+    - event: RoleDeletedEvent
+      handler: RoleDeletedEventHandler
+    - event: SubscriptionDeactivatedEvent
+      handler: SubscriptionDeactivatedEventHandler
+    - event: SubscriptionValidatedEvent
+      handler: SubscriptionValidatedEventHandler
+  http_clients:
+  - IDocumentStreamService
+  - IPennylaneApiFirmService
+  - IPennylaneApiGroupService
+  feature_flags: []
+  gateway_routes: []
+managed_by_ai:
+  role: 'Integration Pennylane : provisioning des utilisateurs et dossiers cote Pennylane, synchronisation de documents, avenants
+    aux conditions (terms) et controle d''acces des signataires.'
+  allowed_http_calls:
+  - target: Pennylane SaaS (API firm/group)
+    allowed: true
+  - target: flux documents (IDocumentStreamService)
+    allowed: true
+  notes: []

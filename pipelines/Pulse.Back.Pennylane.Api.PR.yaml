@@ -1,0 +1,26 @@
+trigger: none
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+resources:
+  repositories:
+  - repository: Pulse
+    name: 'Pulse.Operations.Pipelines'
+    type: git
+    ref: 'refs/heads/Release/v4.0'
+  - repository: PulseReview   # alias impose (reference par le template Build-Back)
+    name: 'Pulse.Operations.Review'
+    type: git
+    ref: 'refs/heads/main'
+
+extends:
+  template: pipelines/pull-request/back.yaml@Pulse
+  parameters:
+    sonarExclusions: '**/Program.cs, **/Migrations/**, **/scripts/**'
+    srcPath: src/Pennylane.Api/Pennylane.WebApi.csproj
+    testsPath: tests/**/*.csproj
+    name: pennylane
+    dotnetVersion: '10.x'
+    enableAiReview: true
+    enableArchGraphFragment: true

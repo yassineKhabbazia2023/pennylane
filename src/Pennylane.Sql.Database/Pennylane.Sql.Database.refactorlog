@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Operations Version="1.0" xmlns="http://schemas.microsoft.com/sqlserver/dac/Serialization/2012/02">
+  <Operation Name="Rename Refactor" Key="cb383c1e-cd7c-4f70-a13f-26ac67088284" ChangeDateTime="06/21/2024 14:53:13">
+    <Property Name="ElementName" Value="[alx].[Account].[AccountTurnoverSlice]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[alx].[Account]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="AccountTurnover" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="a03d2ccb-6a19-4cf9-83b3-d9a67df82663" ChangeDateTime="06/21/2024 14:56:35">
+    <Property Name="ElementName" Value="[cre].[Account].[AccountTurnoverSlice]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[cre].[Account]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="AccountTurnover" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="7fa8abd3-10ea-4ae5-8195-7f733968cec2" ChangeDateTime="06/21/2024 14:58:27">
+    <Property Name="ElementName" Value="[cre].[Account].[AccountDeliveryPhone]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[cre].[Account]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="DeliveryPhone" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="54b17a65-5447-4ac7-bfe6-d3bb1c0e0659" ChangeDateTime="06/21/2024 14:58:33">
+    <Property Name="ElementName" Value="[cre].[Account].[AccountBillingPhone]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[cre].[Account]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="BillingPhone" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="4ccaf260-9363-4ebd-9282-313fe3c12f68" ChangeDateTime="10/01/2024 12:38:04">
+    <Property Name="ElementName" Value="[cre].[Operations].[LastStatusModifiedBy]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[cre].[Operations]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="LastStatusUpdatedBy" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="c7d9930d-1f53-497f-963e-d09ba677caa9" ChangeDateTime="10/01/2024 12:38:09">
+    <Property Name="ElementName" Value="[cre].[Operations].[LastStatusDate]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[cre].[Operations]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="LastStatusUpdatedDate" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="71f1fb29-dc6f-4075-9ca0-ad0ca8d359c6" ChangeDateTime="01/28/2025 14:34:15">
+    <Property Name="ElementName" Value="[ref].[Contact].[ContactId]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[ref].[Contact]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="EntityId" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="9057d03a-deae-4f97-ad5a-fbe6b2c1d15d" ChangeDateTime="01/28/2025 14:34:21">
+    <Property Name="ElementName" Value="[ref].[Role].[RoleId]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[ref].[Role]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="EntityId" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="91531aa7-aa4f-4d66-a9b0-86373567e9d6" ChangeDateTime="01/28/2025 14:34:46">
+    <Property Name="ElementName" Value="[ref].[Account].[AccountId]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[ref].[Account]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="EntityId" />
+  </Operation>
+</Operations>

@@ -1,0 +1,18 @@
+trigger: none
+
+pool:
+  vmImage: 'windows-latest'
+
+resources:
+  repositories:
+  - repository: Pulse
+    name: 'Pulse.Operations.Pipelines'
+    type: git
+    ref: 'refs/heads/Release/v4.0'
+
+extends:
+  template: pipelines/hotfix/sql.yaml@Pulse
+  parameters:
+    srcPath: src\Pennylane.Sql.Database\Pennylane.Sql.Database.sqlproj
+    domain: pnl
+    id: '01'
